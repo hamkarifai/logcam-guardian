@@ -23,15 +23,16 @@ export function AppSidebar() {
   const { open } = useSidebar();
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" className="border-r-2">
       <SidebarContent>
-        <div className="px-4 py-6">
-          <h2 className={`font-bold text-lg transition-opacity ${open ? 'opacity-100' : 'opacity-0 w-0 h-0 overflow-hidden'}`}>
-            Logcam
-          </h2>
+        <div className="px-5 py-8 border-b-2">
+          <div className={`transition-all duration-300 ${open ? 'opacity-100' : 'opacity-0 w-0 h-0 overflow-hidden'}`}>
+            <h2 className="font-bold text-2xl text-gradient-primary">Logcam</h2>
+            <p className="text-xs text-muted-foreground font-secondary mt-1">Face Recognition</p>
+          </div>
         </div>
         
-        <SidebarGroup>
+        <SidebarGroup className="mt-4">
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
@@ -40,8 +41,8 @@ export function AppSidebar() {
                     <NavLink 
                       to={item.url} 
                       end={item.url === "/"}
-                      className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors hover:bg-sidebar-accent"
-                      activeClassName="bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                      className="flex items-center gap-3 px-4 py-3 mx-2 rounded-xl transition-all hover:bg-sidebar-accent group"
+                      activeClassName="bg-gradient-to-r from-primary to-primary/80 text-white font-semibold shadow-md hover:!bg-primary"
                     >
                       <item.icon className="h-5 w-5" />
                       <span>{item.title}</span>

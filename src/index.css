@@ -9,25 +9,25 @@ All colors MUST be HSL.
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --foreground: 219 24% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 219 24% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --popover-foreground: 219 24% 15%;
 
     --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 5% 96%;
-    --secondary-foreground: 240 10% 3.9%;
+    --secondary: 240 5% 95%;
+    --secondary-foreground: 219 24% 15%;
 
-    --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
+    --muted: 240 5% 95%;
+    --muted-foreground: 219 15% 45%;
 
-    --accent: 217 91% 65%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 41 96% 58%;
+    --accent-foreground: 219 24% 15%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -36,10 +36,10 @@ All colors MUST be HSL.
     --input: 240 6% 90%;
     --ring: 217 91% 60%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 240 10% 3.9%;
+    --sidebar-foreground: 219 24% 15%;
     --sidebar-primary: 217 91% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 217 91% 95%;
@@ -47,58 +47,77 @@ All colors MUST be HSL.
     --sidebar-border: 240 6% 90%;
     --sidebar-ring: 217 91% 60%;
 
-    /* Custom design tokens */
-    --card-blue: 217 91% 60%;
-    --card-green: 142 76% 36%;
-    --card-pink: 330 81% 60%;
-    --card-orange: 25 95% 53%;
+    /* Custom vibrant design tokens */
+    --highlight: 173 67% 47%;
+    --surface: 0 0% 100%;
     
-    --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Gradient system */
+    --gradient-primary: linear-gradient(135deg, hsl(217, 91%, 60%) 0%, hsl(173, 67%, 47%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(41, 96%, 58%) 0%, hsl(30, 90%, 55%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(217, 91%, 60%) 0%, hsl(173, 67%, 47%) 100%);
+    
+    /* Card accent colors */
+    --card-blue: 217 91% 60%;
+    --card-teal: 173 67% 47%;
+    --card-gold: 41 96% 58%;
+    --card-orange: 30 90% 55%;
+    
+    /* Shadows and effects */
+    --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-elevation: 0 8px 24px rgba(0, 0, 0, 0.12);
+    
+    --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark {
-    --background: 20 14.3% 4.1%;
-    --foreground: 60 9.1% 97.8%;
+    --background: 219 24% 10%;
+    --foreground: 0 0% 98%;
 
-    --card: 20 14.3% 4.1%;
-    --card-foreground: 60 9.1% 97.8%;
+    --card: 219 24% 13%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 20 14.3% 4.1%;
-    --popover-foreground: 60 9.1% 97.8%;
+    --popover: 219 24% 13%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 60 9.1% 97.8%;
-    --primary-foreground: 24 9.8% 10%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 12 6.5% 15.1%;
-    --secondary-foreground: 60 9.1% 97.8%;
+    --secondary: 219 15% 20%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 12 6.5% 15.1%;
-    --muted-foreground: 24 5.4% 63.9%;
+    --muted: 219 15% 20%;
+    --muted-foreground: 219 15% 65%;
 
-    --accent: 12 6.5% 15.1%;
-    --accent-foreground: 60 9.1% 97.8%;
+    --accent: 41 96% 58%;
+    --accent-foreground: 219 24% 10%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 60 9.1% 97.8%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 12 6.5% 15.1%;
-    --input: 12 6.5% 15.1%;
-    --ring: 24 5.7% 82.9%;
+    --border: 219 15% 22%;
+    --input: 219 15% 22%;
+    --ring: 217 91% 60%;
 
-    --sidebar-background: 20 14.3% 4.1%;
-    --sidebar-foreground: 60 9.1% 97.8%;
+    --sidebar-background: 219 24% 10%;
+    --sidebar-foreground: 0 0% 98%;
     --sidebar-primary: 217 91% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 12 6.5% 15.1%;
-    --sidebar-accent-foreground: 60 9.1% 97.8%;
-    --sidebar-border: 12 6.5% 15.1%;
+    --sidebar-accent: 219 15% 20%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 219 15% 22%;
     --sidebar-ring: 217 91% 60%;
 
     /* Custom design tokens for dark mode */
+    --highlight: 173 67% 47%;
+    --surface: 219 24% 13%;
+    
     --card-blue: 217 91% 60%;
-    --card-green: 142 76% 36%;
-    --card-pink: 330 81% 60%;
-    --card-orange: 25 95% 53%;
+    --card-teal: 173 67% 47%;
+    --card-gold: 41 96% 58%;
+    --card-orange: 30 90% 55%;
+    
+    --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-elevation: 0 8px 24px rgba(0, 0, 0, 0.4);
   }
 }
 
@@ -108,15 +127,55 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground font-primary antialiased;
   }
 
   /* Font families */
-  .font-sans {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  .font-primary {
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
-  .font-mono {
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
+  .font-secondary {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+}
+
+@layer utilities {
+  /* Gradient text */
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-gradient-accent {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Glassmorphism effect */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .dark .glass-card {
+    background: rgba(26, 29, 41, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Card hover lift */
+  .card-hover-lift {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  
+  .card-hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-elevation);
   }
 }
