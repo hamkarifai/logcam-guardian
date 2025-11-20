@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import {
   Table,
   TableBody,
@@ -32,7 +31,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Users, Search, Trash2, Shield, UserCog, Crown } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { EditUserDialog } from "@/components/admin/EditUserDialog";
 
 type UserRole = 'admin' | 'moderator' | 'user';
 
@@ -45,66 +43,46 @@ interface UserProfile {
   roles: UserRole[];
 }
 
+// Mock data for template
+const MOCK_USERS: UserProfile[] = [
+  {
+    id: "1",
+    email: "admin@example.com",
+    full_name: "John Admin",
+    avatar_url: null,
+    created_at: new Date().toISOString(),
+    roles: ['admin', 'user']
+  },
+  {
+    id: "2",
+    email: "moderator@example.com",
+    full_name: "Jane Moderator",
+    avatar_url: null,
+    created_at: new Date().toISOString(),
+    roles: ['moderator', 'user']
+  },
+  {
+    id: "3",
+    email: "user@example.com",
+    full_name: "Bob User",
+    avatar_url: null,
+    created_at: new Date().toISOString(),
+    roles: ['user']
+  },
+];
+
 export default function UserList() {
-  const [users, setUsers] = useState<UserProfile[]>([]);
-  const [filteredUsers, setFilteredUsers] = useState<UserProfile[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [users] = useState<UserProfile[]>(MOCK_USERS);
+  const [filteredUsers, setFilteredUsers] = useState<UserProfile[]>(MOCK_USERS);
   const [searchQuery, setSearchQuery] = useState("");
   const [roleFilter, setRoleFilter] = useState<string>("all");
   const [deleteUserId, setDeleteUserId] = useState<string | null>(null);
-  const [editUser, setEditUser] = useState<UserProfile | null>(null);
   const { toast } = useToast();
 
+  // Filter users based on search and role
   useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  useEffect(() => {
-    filterUsers();
-  }, [users, searchQuery, roleFilter]);
-
-  const fetchUsers = async () => {
-    try {
-      setLoading(true);
-      
-      // Fetch profiles
-      const { data: profiles, error: profilesError } = await supabase
-        .from('profiles')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (profilesError) throw profilesError;
-
-      // Fetch user roles
-      const { data: roles, error: rolesError } = await supabase
-        .from('user_roles')
-        .select('user_id, role');
-
-      if (rolesError) throw rolesError;
-
-      // Combine profiles with their roles
-      const usersWithRoles = profiles?.map(profile => ({
-        ...profile,
-        roles: roles?.filter(r => r.user_id === profile.id).map(r => r.role as UserRole) || []
-      })) || [];
-
-      setUsers(usersWithRoles);
-      setFilteredUsers(usersWithRoles);
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to fetch users",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const filterUsers = () => {
     let filtered = users;
 
-    // Search filter
     if (searchQuery) {
       filtered = filtered.filter(user =>
         user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -112,39 +90,28 @@ export default function UserList() {
       );
     }
 
-    // Role filter
     if (roleFilter !== "all") {
       filtered = filtered.filter(user => user.roles.includes(roleFilter as UserRole));
     }
 
     setFilteredUsers(filtered);
+  }, [users, searchQuery, roleFilter]);
+
+  const handleDeleteUser = (userId: string) => {
+    // Template only - no actual delete logic
+    toast({
+      title: "Template Mode",
+      description: "This is a template. Implement your own delete logic.",
+    });
+    setDeleteUserId(null);
   };
 
-  const handleDeleteUser = async (userId: string) => {
-    try {
-      // Delete user profile (cascade will handle user_roles)
-      const { error } = await supabase
-        .from('profiles')
-        .delete()
-        .eq('id', userId);
-
-      if (error) throw error;
-
-      toast({
-        title: "Success",
-        description: "User deleted successfully",
-      });
-
-      fetchUsers();
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to delete user",
-        variant: "destructive",
-      });
-    } finally {
-      setDeleteUserId(null);
-    }
+  const handleEditUser = (user: UserProfile) => {
+    // Template only - no actual edit logic
+    toast({
+      title: "Template Mode",
+      description: "This is a template. Implement your own edit logic.",
+    });
   };
 
   const getRoleBadgeVariant = (role: UserRole) => {
@@ -282,9 +249,7 @@ export default function UserList() {
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
-          {loading ? (
-            <div className="p-8 text-center text-muted-foreground">Loading users...</div>
-          ) : filteredUsers.length === 0 ? (
+          {filteredUsers.length === 0 ? (
             <div className="p-8 text-center text-muted-foreground">No users found</div>
           ) : (
             <div className="overflow-x-auto">
@@ -339,7 +304,7 @@ export default function UserList() {
                           <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => setEditUser(user)}
+                            onClick={() => handleEditUser(user)}
                             className="gap-1"
                           >
                             <UserCog className="h-3 w-3" />
@@ -364,19 +329,6 @@ export default function UserList() {
           )}
         </CardContent>
       </Card>
-
-      {/* Edit User Dialog */}
-      {editUser && (
-        <EditUserDialog
-          user={editUser}
-          open={!!editUser}
-          onOpenChange={(open) => !open && setEditUser(null)}
-          onSuccess={() => {
-            fetchUsers();
-            setEditUser(null);
-          }}
-        />
-      )}
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={!!deleteUserId} onOpenChange={(open) => !open && setDeleteUserId(null)}>
